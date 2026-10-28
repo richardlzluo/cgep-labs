@@ -1,0 +1,55 @@
+{
+  "component-definition": {
+    "uuid": "8cd63c5b-fe66-4fa4-aa40-2ffe2e2d35d0",
+    "metadata": {
+      "title": "compliant-s3 module v1",
+      "last-modified": "2026-04-26T18:00:00.000000+00:00",
+      "version": "1.0.0",
+      "oscal-version": "1.1.3",
+      "parties": [
+        {
+          "uuid": "a65d46e6-60da-4cec-b8f6-123b455d6d88",
+          "type": "organization",
+          "name": "Your organization"
+        }
+      ]
+    },
+    "components": [
+      {
+        "uuid": "5f9a0dab-3cf6-4e52-8450-8907ebf688bd",
+        "type": "software",
+        "title": "compliant-s3",
+        "description": "Reusable Terraform pattern for an AWS S3 primary bucket plus a dedicated access-log bucket. Hardcodes server-side encryption, versioning, public access block, access logging, and required compliance tags.",
+        "purpose": "Provide a compliant-by-default S3 primitive that any team can adopt with three lines of consumer Terraform.",
+        "responsible-roles": [
+          { "role-id": "provider", "party-uuids": ["a65d46e6-60da-4cec-b8f6-123b455d6d88"] }
+        ],
+        "control-implementations": [
+          {
+            "uuid": "09eb9d4f-014a-44f9-b504-1db3a5fee8f4",
+            "source": "https://raw.githubusercontent.com/usnistgov/oscal-content/main/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json",
+            "description": "Implementation of NIST 800-53 Rev 5 controls satisfied by this module.",
+            "implemented-requirements": [
+              {
+                "uuid": "c60e1598-e9ca-4c4e-905c-fc84622e9767",
+                "control-id": "sc-28",
+                "description": "AES-256 server-side encryption is enforced via aws_s3_bucket_server_side_encryption_configuration. Hardcoded; consumers cannot override.",
+                "props": [
+                  { "name": "implementation-status", "value": "implemented" },
+                  { "name": "terraform-resource", "value": "aws_s3_bucket_server_side_encryption_configuration.primary" }
+                ],
+                "links": [
+                  {
+                    "rel": "evidence",
+                    "href": "s3://EVIDENCE_VAULT/runs/LATEST/evidence-LATEST.tar.gz",
+                    "text": "Signed pipeline bundle containing terraform plan.json."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
